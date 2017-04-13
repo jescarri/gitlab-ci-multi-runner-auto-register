@@ -49,12 +49,10 @@ fi
 
 # launch gitlab-ci-multi-runner passing all arguments
 exec gitlab-ci-multi-runner "$@" &
-RD_PID=$!
-
-echo $RD_PID
-# Wait for either Rundeck to exit or a signal to be sent
-while kill -0 $RD_PID >/dev/null 2>&1; do
-   wait $RD_PID
+GR_PID=$!
+# Wait for runner to die or get a signal
+while kill -0 $GR_PID >/dev/null 2>&1; do
+   wait $GR_PID
    RET=$?
 done
-test $RET = 143 || echo "Rundeck exited with status $RET"
+test $RET = 143 || echo "gitlab-multi-runner exited with status $RET"
