@@ -41,6 +41,7 @@ check_vars() {
 CI_SERVER_TOKEN=`grep token ${CONFIG_FILE}  | awk '{print $3}' | cut -f2 -d\"`
 exec gitlab-ci-multi-runner "$@" &
 GR_PID=$!
+cat $CONFIG_FILE
 # Wait for runner to die or get a signal
 while kill -0 $GR_PID >/dev/null 2>&1; do
    wait $GR_PID
