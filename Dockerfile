@@ -1,7 +1,5 @@
-FROM gitlab/gitlab-runner:v1.11.2
+FROM alpine:latest
 MAINTAINER jesus.carrillo@ticketmaster.com
-ADD entrypoint /entrypoint 
-RUN chmod +x entrypoint
+ADD gitlab-ci-multi-runner-linux-amd64 /bin/gitlab-ci-multi-runner
+RUN chmod +x /bin/gitlab-ci-multi-runner
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
-ENTRYPOINT ["/entrypoint"]
-CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
